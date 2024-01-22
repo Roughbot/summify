@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import linkIcon from "../assets/link.svg";
+import tick from "../assets/tick.svg";
 import copy from "../assets/copy.svg";
 import loader from "../assets/loader.svg";
 import { useLazyGetSummaryQuery } from "../services/article";
@@ -45,6 +46,16 @@ const Demo = () => {
     }
   };
 
+  const [copied, setCopied] = useState("");
+
+  const handleCopy = (copyUrl) => {
+    setCopied(copyUrl);
+    navigator.clipboard.writeText(copyUrl);
+    setTimeout(() => {
+      setCopied("");
+    }, 2000);
+  };
+
   return (
     <section className="mt-16 w-full max-w-xl">
       <div className="flex flex-col w-full gap-2">
@@ -81,9 +92,14 @@ const Demo = () => {
               onClick={() => setArticles(article)}
               className="link_card flex justify-between items-center"
             >
-              <div className="copy_btn">
+              <div
+                className="copy_btn"
+                onClick={() => {
+                  handleCopy(article.url);
+                }}
+              >
                 <img
-                  src={copy}
+                  src={copied === article.url ? tick : copy}
                   alt="copy_icon"
                   className="w-[40%] h-[40%] object-contain"
                 />
