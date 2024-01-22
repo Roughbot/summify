@@ -1,4 +1,4 @@
-import logo from "../../public/reports.png";
+import logo from "../assets/reports.png";
 const Hero = () => {
   return (
     <header className="w-full flex flex-col justify-center items-center">
